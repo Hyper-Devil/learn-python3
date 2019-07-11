@@ -4,7 +4,7 @@
 
 user_name = input("user_name=")
 email = (input("email=")
-password = input("passward=")
+password = input("password=")
 if (user_name == "whd" or email == "tywhd@qq.com") and password == "123":
     print("Log in")
 elif (user_name == "whd" or email == "tywhd@qq.com") or not password == "123":
