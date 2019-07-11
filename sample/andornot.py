@@ -3,7 +3,7 @@
 # password = "123"
 
 user_name = input("user_name=")
-email = (input("email=")
+email = input("email=")
 password = input("password=")
 if (user_name == "whd" or email == "tywhd@qq.com") and password == "123":
     print("Log in")
