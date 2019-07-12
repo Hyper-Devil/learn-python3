@@ -6,6 +6,7 @@ user_name = input("user_name=")
 email = input("email=")
 password = input("password=")
 if (user_name == "whd" or email == "tywhd@qq.com") and password == "123":
+    # if后边也有冒号( ° △ °)
     print("Log in")
 elif (user_name == "whd" or email == "tywhd@qq.com") or not password == "123":
     print("Forget password?")
