@@ -17,6 +17,7 @@ print(s)
 s.add(4)
 print(s)
 s.remove(3)
+# remove并不是pop   弹幕说与栈的概念有关
 print(s)
 
 s1 = set([1, 2, 3])
