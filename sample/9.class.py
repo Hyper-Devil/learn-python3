@@ -36,7 +36,11 @@ class Student(object):
         self.__score = score
 
     def set_name(self, name):
-        self.__name = name
+        if len(name) <= 10:
+            # *可以通过set接口去限定name的长度
+            self.__name = name
+        else:
+            print('too long!')
 
     # *允许外部代码获取、修改
 
@@ -49,5 +53,6 @@ print(bart.get_name())
 print(bart.get_score())
 bart.print_score()
 print(bart.get_name(), bart.get_grade())
+bart.set_name('alan123123123')
 bart.set_name('alan')
 print(bart.get_name())
