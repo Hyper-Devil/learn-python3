@@ -1,18 +1,19 @@
 import os
-# import sys
-# sys.path.append('./old/')
-# import fx
+import old.mymodel
+# *需要__init__.py
+import sys
+sys.path.append('./')
 import test
-# 同目录没问题
+# !仍未解决的问题：如何加载任意目录下的模块
 
 path1 = os.path.abspath('.')
 # 当前目录
 print(path1)
-path2 = os.path.abspath('..')
+path2 = os.path.abspath('../')
 # 上级目录
 print(path2)
 path3 = os.path.abspath('/')
 # 根目录
 print(path3)
-# fx.print_hello()
-test.print_hello()
+old.mymodel.print_hello()
+test.print_hello2()
