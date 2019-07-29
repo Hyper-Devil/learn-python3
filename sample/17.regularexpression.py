@@ -41,6 +41,8 @@ s = "<div>hello\nworld</div>"
 m = re.findall(r"<div>(.*)</div>", s, re.S)
 # *匹配换行，也就是整个串看做一行
 print(m)
+# *输出的是['hello\nworld']
+
 s = "<dIv>hello\nworld</DIV>"
 m = re.findall(r"<div>(.*)</div>", s, re.S | re.I)
 # *匹配换行且不区分大小写,|位运算符，or逻辑运算符
