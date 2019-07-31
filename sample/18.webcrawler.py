@@ -4,14 +4,16 @@ import html
 import time
 
 
+# *思路：结构-大块-小块
 def crawl_joke_list():
     url = "http://www.qiushibaike.com/text/page/"
     res = requests.get(url)
     # *获取每个段子div的正则↓
     pattern = re.compile(
-        "<div class=\"article block untagged mb15.*?<div class=\"content\">\n<span>.*?</span>", re.S)
-        # *<span>前需要\n
-    # TODO把 <br/> 替换成换行↓，原因未知
+        "<div class=\"article block untagged mb15.*?<div class=\"content\">\n<span>.*?</span>",
+        re.S)
+    # *<span>前需要\n
+    # TODO把 <br/> 替换成\n，原因未知↓
     body = html.unescape(res.text).replace("<br/>", "\n")
     m = pattern.findall(body)
     # *抽取用户名的正则↓
@@ -28,7 +30,8 @@ def crawl_joke_list():
         content = content_pattern.findall(joke)
         if len(content) > 0:
             output.append(content[0].replace("\n", ""))
-        print(output)
+        print("\t".join(output))
+        # *join方法
     time.sleep(5)
 
 
