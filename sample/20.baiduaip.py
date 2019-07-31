@@ -20,7 +20,8 @@ def get_text_from_image(img_path='./images/a.jpg'):
 
     # *带参数调用高精度文字识别, 图片参数为本地图片
     result = client.basicAccurate(image, options)
-    qa = result["words_result"]
+    # qa = result["words_result"]
+    # *这一行也放到列表生成器里
     # *qa是个list，元素为dict
 
     # global question, ans1, ans2, ans3
@@ -31,11 +32,13 @@ def get_text_from_image(img_path='./images/a.jpg'):
     # ans3 = qa[3]['words']
 
     # *不够优雅
-    QA = []
-    for x in qa:
-        words = x["words"]
-        QA.append(str(words))
-    return QA
+    # QA = []
+    # for x in qa:
+    #     words = x["words"]
+    #     QA.append(str(words))
+    # return QA
+    # *Pythonic的写法
+    return [x['words'] for x in result["words_result"]]
 
 
 if __name__ == "__main__":
