@@ -14,7 +14,8 @@ print(response.headers)
 print(response.content)
 # 返回 bytes 类型的响应体
 print(response.text)
-print(response.content.decode('utf-8'))
 # 返回 str 类型的响应体，相当于 response.content.decode('utf-8')
+print(response.content.decode('utf-8'))
+
 print(response.json())
 # 返回 dict 类型的响应体，相当于 json.loads(response.text)
