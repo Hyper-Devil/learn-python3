@@ -1,48 +1,53 @@
-import re
+# import re
 import requests
 import baiduaip
 import time
-# from bs4 import BeautifulSoup
-# import lxml
-# import html
+from bs4 import BeautifulSoup
 
-start = time.time()
-temp_ocr = baiduaip.get_text_from_image()
-question = temp_ocr[0]
-ans1 = temp_ocr[1]
-ans2 = temp_ocr[2]
-ans3 = temp_ocr[3]
-# ans = []
-# ans.append(ans1)
-# ans.append(ans2)
-# ans.append(ans3)
-
-print(question)
-
-url = "http://www.paopaoche.net/sj/120914.html"
-res = requests.get(url)
-ret = res.content.decode('gbk')
-# body = html.unescape(res).replace("<br/>", "\n")
-print(ret)
+HEADERS = {
+    'User-Agent':
+    'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 SE 2.X MetaSr 1.0'
+}
+URL = 'http://www.baidu.com/s?wd='
 
 
-# with open('data.txt', 'r', encoding='utf-8') as f:
-#     lines = f.readlines()
-# print(c)
+def ocr():
+    ret = baiduaip.get_text_from_image()
+    tmp = str(ret[0])
+    if tmp.endswith("?"):
+        # ?出现报错'str' object has no attribute 'endsWith'
+        # !endswith, w not W
+        question = ret[0]
+    else:
+        question = ret[0] + ret[1]        
+    print('将查询问题：{}'.format(question))
+    return question
 
-# result = re.match(r'\u98df\u53d1\u9b3c\u7684\u59d0\u59d0\u662f\u8c01', c)
-# if result:
-#     print(result.group())
-# else:
-#     print('No match!')
+def get_ppc_url(question, url):
+    res = requests.get(url + str(question + '跑跑车'), headers=HEADERS)
+    soup = BeautifulSoup(res.text, 'lxml')
+    div_first_result = soup.find('div', class_='result c-container ', id='1')
+    # ?出现报错result、find_all和find什么的
+    # !是因为没有查到标签
+    # !'result c-container ' followed a f**king space!
+    a = div_first_result.find('a')
+    href_url = a['href']
+    return href_url
 
-# print(c.find('\u98df\u53d1\u9b3c\u7684\u59d0\u59d0\u662f\u8c01'))
+def prase_detail_page(url):
+    res = requests.get(url, headers=HEADERS)
+    soup = BeautifulSoup(res.content.decode('gbk'), 'lxml')
+    span = soup.find_all('span', style = 'color: rgb(23, 54, 93);')[0]
+    strong = span.find('strong')
+    ans = span.string
+    return ans
 
-# for line in lines:
-#     # if line.find('\u98df\u53d1\u9b3c\u7684\u59d0\u59d0\u662f\u8c01'):
-#     if line.find('食发鬼的姐姐是谁?'):
-#         print(line)
-#         break
-    
-end = time.time()
-print('程序用时：'+str(end-start)+'秒')
+def main():
+    start = time.time()
+    ans = prase_detail_page(get_ppc_url(question = ocr(), url = URL))
+    print('答案是：{}'.format(ans))
+    end = time.time()   
+    print('程序用时：'+str(end-start)+'秒')
+
+if __name__ == "__main__":
+    main()
