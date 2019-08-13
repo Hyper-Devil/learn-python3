@@ -19,9 +19,10 @@ def ocr():
         # !endswith, w not W
         question = ret[0]
     else:
-        question = ret[0] + ret[1]        
+        question = ret[0] + ret[1]
     print('将查询问题：{}'.format(question))
     return question
+
 
 def get_ppc_url(question, url):
     res = requests.get(url + str(question + '跑跑车'), headers=HEADERS)
@@ -34,20 +35,23 @@ def get_ppc_url(question, url):
     href_url = a['href']
     return href_url
 
+
 def prase_detail_page(url):
     res = requests.get(url, headers=HEADERS)
     soup = BeautifulSoup(res.content.decode('gbk'), 'lxml')
-    span = soup.find_all('span', style = 'color: rgb(23, 54, 93);')[0]
+    span = soup.find_all('span', style='color: rgb(23, 54, 93);')[0]
     strong = span.find('strong')
     ans = span.string
     return ans
 
+
 def main():
     start = time.time()
-    ans = prase_detail_page(get_ppc_url(question = ocr(), url = URL))
+    ans = prase_detail_page(get_ppc_url(question=ocr(), url=URL))
     print('答案是：{}'.format(ans))
-    end = time.time()   
-    print('程序用时：'+str(end-start)+'秒')
+    end = time.time()
+    print('程序用时：' + str(end - start) + '秒')
+
 
 if __name__ == "__main__":
     main()
