@@ -11,7 +11,7 @@ options["language_type"] = "CHN_ENG"
 options["probability"] = "true"
 
 
-def get_text_from_image(img_path='./images/a.jpg'):
+def get_text_from_image(img_path='./sample/images/a.jpg'):
     client = AipOcr(APP_ID, API_KEY, SECRET_KEY)
 
     # *打开图片
