@@ -14,7 +14,6 @@ def crawl_joke_list():
         re.S)
     # *<span>前需要\n
     # TODO把 <br/> 替换成\n，原因未知↓
-    # TODO处理转义https://blog.csdn.net/zhusongziye/article/details/78786519
     body = html.unescape(res.text).replace("<br/>", "\n")
     m = pattern.findall(body)
     # *抽取用户名的正则↓
