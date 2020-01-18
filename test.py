@@ -8,3 +8,4 @@ for i in x:
     sum = sum + res
 
 print(sum)
+# 计算器问题，默认角度
